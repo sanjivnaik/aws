@@ -1,0 +1,105 @@
+Mobax commands:
+	cd  /cygdrive/d/sanjiv-study/aws/pem-files
+	cls
+	ls -ltr
+	sudo su -> to move to root user
+
+	clear - for ubuntu
+====
+2020-07-18
+==========
+On Ubuntu use apt-get to install
+All other flevors use yum
+
+On linux Server
+	Apache/httpd server configuration on linux
+	Step 1) Launch linux Amazon instance
+	Step 2) Connect to linux machine from putty/mobaxterm or from linux o/s
+	Step 3) switch to root user
+	# sudo su
+	# yum update -y(to update softwares, optional)
+	# whoami
+	# yum  install httpd -y   { installing apache pkg => httpd}
+	# service httpd start
+	# service httpd status
+	# service httpd restart
+	# chkconfig httpd on   { to turn service permanently on}
+	# cd /var/www/html
+	# vi index.html
+	<html>
+	<body  bgcolor=black>
+	<marquee>
+	<font color=gold> <h1>  Welcome to AWS at ZOOM </h1> </font>
+	</marquee
+	</body>
+	<html>	
+	STep 4) Provide public ip of instance and check the site
+	Enable port 80
+	Select linux instance go to end select security group
+	inbound rule => Edit -> Add Rule select http/80
+	Default site comes
+On linux Server(using advanced detail option)
+	#!/bin/bash
+	yum update -y
+	yum install httpd -y
+	service httpd start
+	chkconfig httpd on
+	echo "<html><body bgcolor=black><font color=gold><marquee><h1> Welcome Sanjiv to AWS at CGI ...This is Web Server A for ELB </h1></marquee></font></body> <html>" > /var/www/html/index.html
+On Ubuntu Server
+	# sudo su
+	# apt-get update -y
+	# apt-get install apache2 apache2-utils -y  { installing apache pkg => httpd}
+	# service apache2 start
+	# service apache2 status
+	# service apache2 restart(not sure)
+	# cd /var/www/html
+	# ls -ltr
+		Here already default index.html will be there
+	# rm -rf index.html (to remove)
+	# vi index.html
+Configuration of WEb server in windows
+	Windows ==>
+	step 1)
+	Run =>  servermanager.msc
+	Or
+	Start -> Admin tools -> server Manager
+
+	->Roles -> Add Roles -> next -> Web server (IIS)
+	Step 2)
+	To open IIS application
+	Start -> Admin Tools -> IIS
+	or
+	Run -> inetmgr
+
+	Step 3)
+	Design web page and test
+	In Win instance
+	open -> C: -> inetpub -> wwwroot -> create index.html file
+	
+	
+	
+	
+
+
+
+
+yum update -y
+yum install httpd -y
+service httpd start
+chkconfig httpd on
+cd /var/www/html
+
+vi index.html
+<html>
+<body bgcolor=black>
+<font color=gold>
+<marquee>
+<h1> This is Web Server A from Chennai, Welcome to India </h1>
+</marquee>
+</font>
+</body> 
+<html>
+----
+
+---
+3!uZEEgfMQ(PXXLrC@uWO.iWizJO*LP-
