@@ -1,0 +1,69 @@
+[root@ip-172-31-12-176 yum.repos.d]# cd /etc/yum.repos.d
+[root@ip-172-31-12-176 yum.repos.d]# wget http://s3tools.org/repo/RHEL_6/s3tools.repo
+--2020-08-08 03:42:35--  http://s3tools.org/repo/RHEL_6/s3tools.repo
+Resolving s3tools.org (s3tools.org)... 66.39.80.91
+Connecting to s3tools.org (s3tools.org)|66.39.80.91|:80... connected.
+HTTP request sent, awaiting response... 301 Moved Permanently
+Location: https://s3tools.org/repo/RHEL_6/s3tools.repo [following]
+--2020-08-08 03:42:35--  https://s3tools.org/repo/RHEL_6/s3tools.repo
+Connecting to s3tools.org (s3tools.org)|66.39.80.91|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 301
+Saving to: ‘s3tools.repo.1’
+
+s3tools.repo.1                       100%[===================================================================>]     301  --.-KB/s    in 0s
+
+2020-08-08 03:42:35 (39.3 MB/s) - ‘s3tools.repo.1’ saved [301/301]
+
+[root@ip-172-31-12-176 yum.repos.d]# sudo yum install s3cmd
+Loaded plugins: priorities, update-motd, upgrade-helper
+amzn-main                                                                                                                 | 2.1 kB  00:00:00
+amzn-updates                                                                                                              | 3.8 kB  00:00:00
+Package s3cmd-1.0.0-4.1.x86_64 already installed and latest version
+Nothing to do
+[root@ip-172-31-12-176 yum.repos.d]# sudo yum upgrade
+Loaded plugins: priorities, update-motd, upgrade-helper
+No packages marked for update
+[root@ip-172-31-12-176 yum.repos.d]# s3cmd --configure
+
+Enter new values or accept defaults in brackets with Enter.
+Refer to user manual for detailed description of all options.
+
+Access key and Secret key are your identifiers for Amazon S3
+Access Key [AKIAUWZO4WXGTVPHCL7T]:
+Secret Key [oeLOEGciTkZX+0IZfpc0xFa5z2OaEDWgydMgZEqO]:
+
+Encryption password is used to protect your files from reading
+by unauthorized persons while in transfer to S3
+Encryption password [abc123]:
+Path to GPG program [/usr/bin/gpg]:
+
+When using secure HTTPS protocol all communication with Amazon S3
+servers is protected from 3rd party eavesdropping. This method is
+slower than plain HTTP and can't be used if you're behind a proxy
+Use HTTPS protocol [No]: Yes
+
+New settings:
+  Access Key: AKIAUWZO4WXGTVPHCL7T
+  Secret Key: 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
+  Encryption password: abc123
+  Path to GPG program: /usr/bin/gpg
+  Use HTTPS protocol: True
+  HTTP Proxy server name:
+  HTTP Proxy server port: 0
+
+Test access with supplied credentials? [Y/n] Y
+Please wait...
+Success. Your access key and secret key worked fine :-)
+
+Now verifying that encryption works...
+Success. Encryption and decryption worked fine :-)
+
+Save settings? [y/N] y
+Configuration saved to '/root/.s3cfg'
+[root@ip-172-31-12-176 yum.repos.d]#
+[root@ip-172-31-12-176 yum.repos.d]#
+[root@ip-172-31-12-176 yum.repos.d]# s3cmd ls
+2020-08-02 02:32  s3://ppani0502
+2020-07-26 03:32  s3://ppni12345
+[root@ip-172-31-12-176 yum.repos.d]#
