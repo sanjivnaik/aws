@@ -1,0 +1,133 @@
+2020-08-22
+==========
+-> 	top commnd to check the CPU utilization
+[ec2-user@ip-172-31-28-36 ~]$ top
+top - 14:30:29 up 14 min,  1 user,  load average: 0.00, 0.00, 0.00
+Tasks:  87 total,   1 running,  62 sleeping,   0 stopped,   0 zombie
+Cpu(s):  0.0%us,  0.0%sy,  0.0%ni,100.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   1009132k total,   182248k used,   826884k free,    10312k buffers
+Swap:        0k total,        0k used,        0k free,   107612k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+    1 root      20   0 19696 2588 2256 S  0.0  0.3   0:01.04 init
+    2 root      20   0     0    0    0 S  0.0  0.0   0:00.00 kthreadd
+    3 root      20   0     0    0    0 I  0.0  0.0   0:00.00 kworker/0:0
+    4 root       0 -20     0    0    0 I  0.0  0.0   0:00.00 kworker/0:0H
+    5 root      20   0     0    0    0 I  0.0  0.0   0:00.01 kworker/u30:0
+    6 root       0 -20     0    0    0 I  0.0  0.0   0:00.00 mm_percpu_wq
+    7 root      20   0     0    0    0 S  0.0  0.0   0:00.01 ksoftirqd/0
+    8 root      20   0     0    0    0 I  0.0  0.0   0:00.02 rcu_sched
+    9 root      20   0     0    0    0 I  0.0  0.0   0:00.00 rcu_bh
+   10 root      RT   0     0    0    0 S  0.0  0.0   0:00.00 migration/0
+   11 root      RT   0     0    0    0 S  0.0  0.0   0:00.00 watchdog/0
+   12 root      20   0     0    0    0 S  0.0  0.0   0:00.00 cpuhp/0
+   14 root      20   0     0    0    0 S  0.0  0.0   0:00.00 kdevtmpfs
+   15 root       0 -20     0    0    0 I  0.0  0.0   0:00.00 netns
+   16 root      20   0     0    0    0 I  0.0  0.0   0:00.00 kworker/u30:1
+   21 root      20   0     0    0    0 S  0.0  0.0   0:00.00 xenbus
+   22 root      20   0     0    0    0 S  0.0  0.0   0:00.01 xenwatch
+   23 root      20   0     0    0    0 I  0.0  0.0   0:00.06 kworker/0:1
+  160 root      20   0     0    0    0 S  0.0  0.0   0:00.00 khungtaskd
+  161 root      20   0     0    0    0 S  0.0  0.0   0:00.00 oom_reaper
+  162 root       0 -20     0    0    0 I  0.0  0.0   0:00.00 writeback
+  164 root      20   0     0    0    0 S  0.0  0.0   0:00.00 kcompactd0
+  165 root      25   5     0    0    0 S  0.0  0.0   0:00.00 ksmd
+  166 root      39  19     0    0    0 S  0.0  0.0   0:00.00 khugepaged
+  167 root       0 -20     0    0    0 I  0.0  0.0   0:00.00 crypto
+  168 root       0 -20     0    0    0 I  0.0  0.0   0:00.00 kintegrityd
+
+-> 	we have to increase the CPU utilization. To do that there is a stress command, but before that we have to install epel tool
+	Create a new terminal and connect to the same instance, move to root user and type
+	yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+	
+	[ec2-user@ip-172-31-28-36 ~]$ sudo su
+	[root@ip-172-31-28-36 ec2-user]# yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+	Loaded plugins: priorities, update-motd, upgrade-helper
+	epel-release-latest-7.noarch.rpm                                                                                 |  15 kB  00:00:00
+	Examining /var/tmp/yum-root-MuBEUm/epel-release-latest-7.noarch.rpm: epel-release-7-12.noarch
+	Marking /var/tmp/yum-root-MuBEUm/epel-release-latest-7.noarch.rpm as an update to epel-release-6-8.9.amzn1.noarch
+	Resolving Dependencies
+	amzn-main/latest                                                                                                 | 2.1 kB  00:00:00
+	amzn-updates/latest                                                                                              | 3.8 kB  00:00:00
+	--> Running transaction check
+	---> Package epel-release.noarch 0:6-8.9.amzn1 will be updated
+	---> Package epel-release.noarch 0:7-12 will be an update
+	--> Finished Dependency Resolution
+
+	Dependencies Resolved
+
+	========================================================================================================================================
+	 Package                        Arch                     Version                  Repository                                       Size
+	========================================================================================================================================
+	Updating:
+	 epel-release                   noarch                   7-12                     /epel-release-latest-7.noarch                    24 k
+
+	Transaction Summary
+	========================================================================================================================================
+	Upgrade  1 Package
+
+	Total size: 24 k
+	Is this ok [y/d/N]: y
+	Downloading packages:
+	Running transaction check
+	Running transaction test
+	Transaction test succeeded
+	Running transaction
+	  Updating   : epel-release-7-12.noarch                                                                                             1/2
+	  Cleanup    : epel-release-6-8.9.amzn1.noarch                                                                                      2/2
+	  Verifying  : epel-release-7-12.noarch                                                                                             1/2
+	  Verifying  : epel-release-6-8.9.amzn1.noarch                                                                                      2/2
+
+	Updated:
+	  epel-release.noarch 0:7-12
+
+	Complete!
+
+-> then yum install stress
+	[root@ip-172-31-28-36 ec2-user]# yum install stress
+	Loaded plugins: priorities, update-motd, upgrade-helper
+	847 packages excluded due to repository priority protections
+	Resolving Dependencies
+	--> Running transaction check
+	---> Package stress.x86_64 0:1.0.4-4.2.amzn1 will be installed
+	--> Finished Dependency Resolution
+
+	Dependencies Resolved
+
+	========================================================================================================================================
+	 Package                      Arch                         Version                                Repository                       Size
+	========================================================================================================================================
+	Installing:
+	 stress                       x86_64                       1.0.4-4.2.amzn1                        amzn-main                        38 k
+
+	Transaction Summary
+	========================================================================================================================================
+	Install  1 Package
+
+	Total download size: 38 k
+	Installed size: 89 k
+	Is this ok [y/d/N]: y
+	Downloading packages:
+	stress-1.0.4-4.2.amzn1.x86_64.rpm                                                                                |  38 kB  00:00:00
+	Running transaction check
+	Running transaction test
+	Transaction test succeeded
+	Running transaction
+	  Installing : stress-1.0.4-4.2.amzn1.x86_64                                                                                        1/1
+	  Verifying  : stress-1.0.4-4.2.amzn1.x86_64                                                                                        1/1
+
+	Installed:
+	  stress.x86_64 0:1.0.4-4.2.amzn1
+
+	Complete!
+
+-> 	Check stress is installed:	
+	[root@ip-172-31-28-36 ec2-user]# which stress
+	/usr/bin/stress
+	
+-> 	using stress command create 40 cpus with timeout 1000 sec, so that CPU utilization will be 100%
+	[root@ip-172-31-28-36 ec2-user]# stress --cpu 40 --timeout 1000
+	stress: info: [2959] dispatching hogs: 40 cpu, 0 io, 0 vm, 0 hdd
+
+-> Check the other terminal for the CPU utilization, it should be 100%
+
